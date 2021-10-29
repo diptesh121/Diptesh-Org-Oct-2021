@@ -1,3 +1,10 @@
+/**
+ * @description       : 
+ * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+ * @group             : 
+ * @last modified on  : 10-29-2021
+ * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+**/
 public class AccountHandler {
 public static Account insertNewAccount(String name) {
 Account a = new Account();
@@ -10,4 +17,4 @@ return null;
 }
 return a;
 }
-}
+} 
