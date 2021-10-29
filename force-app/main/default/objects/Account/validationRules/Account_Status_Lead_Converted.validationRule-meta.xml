@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Account_Status_Lead_Converted</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+ Lead_Converted__c= TRUE,
+ISPICKVAL( Account_Type__c, &quot;&quot; ))</errorConditionFormula>
+    <errorDisplayField>Account_Type__c</errorDisplayField>
+    <errorMessage>Please update Account type</errorMessage>
+</ValidationRule>

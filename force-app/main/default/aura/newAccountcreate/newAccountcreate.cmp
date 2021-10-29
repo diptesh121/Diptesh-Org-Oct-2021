@@ -1,0 +1,24 @@
+<aura:component controller="createnewacc" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute name="createAcc" type="Account" default="{'sObjectType':'Account',
+                                                             'Name':'',
+                                                             'Rating':''}"/>
+    <aura:attribute name="objName" type="string" default="Account"/>
+    <aura:attribute name="fldName" type="string" default="Rating"/>
+    <aura:attribute name="ratingList" type="List" />
+    <aura:handler name="init" value="{! this}" action="{!c.doInit}"/>
+    
+    <div class="slds-col slds-size_1-of-1">
+        <lightning:input type="Text" class="slds-size_1-of-3" label="Name" value="{!v.createAcc.Name}"/>  
+        <lightning:input type="Text" label="Account Number" value="{!v.createAcc.AccountNumber}"/> 
+        <lightning:input type="Email" label="Email ID" value="{!v.createAcc.Email}"/> 
+        <lightning:input type="Phone" label="Phone Number" value="{!v.createAcc.Phone}"/> 
+        <lightning:select label="Rating" value="{!v.createAcc.Rating}">
+            <option value="">—None—</option>
+            <aura:iteration items="{!v.ratingList}" var="ac">
+                <option value="{!ac}">{!ac}</option>
+            </aura:iteration>
+        </lightning:select>
+        <lightning:button label="Save" iconPosition="left" variant="brand" onclick="{!c.doSave}"/>
+        <lightning:button label="Cancel" iconPosition="right" variant="destructive" onclick="{!c.docancel}"/>
+    </div>
+</aura:component>

@@ -1,0 +1,12 @@
+<aura:component controller="PickListUtilcls">
+    <aura:attribute name="optionses" type="Object[]"/>
+    <aura:attribute name="selectedOption" type="string"/>
+    <aura:handler name="init" value="{!this}" action="{! c.doInit}"/>
+    <lightning:combobox name="progress" label="Status" value="{! v.selectedOption}" placeholder="Select Contact" Options="{! v.options}" />
+    <div>
+        <B>Selected Value:</B> {!v.selectedOption}
+    </div>
+    <div>
+        {!v.myMap.key}
+    </div>
+</aura:component>

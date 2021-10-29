@@ -1,0 +1,17 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 10-11-2021
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<apex:page readOnly="true" controller="Sobjectandfieldpicklist"  contentType="application/vnd.ms-excel#History List.xls">
+<apex:pageBlock>
+    <apex:pageBlockTable value="{!TableList}" var="rec" id="tabledisplay" >
+        <apex:repeat value="{!selectedfield}" var="fld">
+            <apex:column value="{!rec[fld]}"/>
+        </apex:repeat>
+    </apex:pageBlockTable> 
+</apex:pageBlock>
+
+</apex:page>

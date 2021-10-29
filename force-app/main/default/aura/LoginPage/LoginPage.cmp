@@ -1,0 +1,57 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global"
+                controller="LoginDataapexclass">
+    <aura:attribute name="createAcc" type="Login_History__c" default="{'sObjectType':'Login_History__c','Name':'',
+                                                                      'Login_Time__c':'',
+                                                                      'Logout_Time__c':'',
+                                                                      'Login_Date__c':''
+                                                                      }"/>
+    <aura:attribute name="selectedId" type="String" />
+    <aura:attribute name="showSpinner" type="Boolean" default="true" />
+    <aura:attribute name="startDatetime" type="time" />
+    <aura:attribute name="startDate" type="Date" />
+    <aura:attribute name="EndDatetime" type="time" />
+    <aura:attribute name="data" type="Object"/>
+    <aura:attribute name="columns" type="List"/>
+    <aura:attribute name="errors" type="Object" default="[]"/>
+    <aura:attribute name="draftValues" type="Object" default="[]"/>
+    
+    
+    <div class="slds-p-around_medium">
+        <lightning:recordEditForm objectApiName="Login_History__c" aura:id="editForm" 
+                                  onsubmit="{!c.handleSubmit}"
+                                  onsuccess="{!c.handleSuccess}"
+                                  >
+            <lightning:inputField fieldName="Employee_Data__c" />
+            
+            <lightning:button label="Log-In" name="Log-In" onclick="{!c.gettimenow}" class="slds-m-top_medium"/>
+            
+            <lightning:button label="Log-Out" name="Log-Out" onclick="{!c.getlogouttime}" class="slds-m-top_medium"/>
+            <br/>
+            <div class="slds-size_1-of-2">
+                <lightning:inputField fieldName="Login_Date__c" value="{!v.startDate}"
+                                                                       messageWhenBadInput="Does Not allow, Please put Proper formet"
+/>
+                
+            
+                <lightning:inputField fieldName="Login_Time__c" value="{!v.startDatetime}"/>
+                
+                <lightning:inputField  fieldName="Logout_Time__c"  value="{!v.EndDatetime}"/>
+            </div>
+            <lightning:button type="submit"  name="Log-In" label="submit" class="slds-m-top_medium"/>
+            
+            <div class="slds-hidden"> 
+                <lightning:datatable aura:id="dtTable"
+                                     columns="{! v.columns }"
+                                     data="{!v.data }"
+                                     keyField="Id"
+                                     errors="{! v.errors }"
+                                     draftValues="{! v.draftValues }"
+                                     onsave="{! c.handleSaveEdition }"
+                                     />
+            </div>
+            
+        </lightning:recordEditForm>
+        <c:Worktasktableparent/>
+    </div>
+    
+</aura:component>

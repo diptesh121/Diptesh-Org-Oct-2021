@@ -1,0 +1,26 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 10-26-2021
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+
+<apex:page showHeader="false" sidebar="false">
+    <apex:includeLightning />    
+    <div id="LightningComponentid" />   
+<!-- the Id of div tag which will be used to render your LWC component  -->
+    <script>
+        $Lightning.use("c:testexternal", function() {
+            $Lightning.createComponent("c:recordFormStaticContact",
+            { 
+                message   : 'Simple Message From VF Page', // You can pass the value to @api attributes if you have inside JavaScript Class.
+                recordId : '{!$CurrentPage.parameters.id}'
+            },
+            "LightningComponentid", 
+            function(cmp) {
+                console.log('Calling the LWC Component');
+            });
+        });
+    </script>
+</apex:page>

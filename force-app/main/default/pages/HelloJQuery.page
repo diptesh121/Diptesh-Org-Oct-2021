@@ -1,0 +1,13 @@
+<apex:page >
+    <!-- Add the static resource to page's <head> -->
+    <apex:includeScript value="{! $Resource.jquery }"/>
+    <!-- A short bit of jQuery to test it's there -->
+    <script type="text/javascript">
+        jquery.noConflict();
+        jquery(document).ready(function() {
+            jquery("#message").html("Hello from jQuery!");
+        });
+    </script>
+    <!-- Where the jQuery message will appear -->
+    <h1 id="message"></h1>
+</apex:page>

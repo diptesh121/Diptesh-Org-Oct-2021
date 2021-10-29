@@ -1,0 +1,27 @@
+<aura:component controller="ContactAura" implements="flexipage:availableForAllPageTypes,force:appHostable,flexipage:availableForRecordHome,force:hasRecordId,force:hasSObjectName">
+    <aura:attribute name="contactRowstable" type="Object[]"/>
+    <aura:attribute name="mycolumns" type="List"/>
+   		<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+        <aura:handler event="force:refreshView" action="{!c.doInit}" />
+
+    <aura:handler event="force:refreshView" action="{!c.isRefreshed}" />
+
+ 	 <br/>
+      <div class="slds-scrollable_y" style="height:30rem;">
+        <p>
+            <b> List Of Contact</b></p>
+        
+          <lightning:datatable aura:id="conTable"
+                               keyField="Id"
+                               data="{! v.contactRowstable}"
+                               columns="{! v.mycolumns }"
+                               errors="{! v.errors }"
+                               draftValues="{!v.draftValues }"
+                               hideCheckboxColumn="true"
+                               onsave="{! c.onSave}"
+                               onrowaction="{!c.viewRecord}"
+                               />
+          
+    </div>
+    
+</aura:component>

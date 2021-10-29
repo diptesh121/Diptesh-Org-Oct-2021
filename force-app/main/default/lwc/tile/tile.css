@@ -1,0 +1,30 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+ }
+
+.title {
+    font-weight: strong;
+}
+
+.product-img {
+    max-width: 100px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:link {
+    color: rgb(159, 159, 159);
+}
+a:visited {
+    color: green;
+}
+a:hover {
+    color: hotpink;
+}
+a:active {
+    color: blue;
+}

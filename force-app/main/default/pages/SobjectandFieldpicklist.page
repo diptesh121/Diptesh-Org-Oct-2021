@@ -1,0 +1,47 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 10-11-2021
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<apex:page docType="html-5.0" controller="Sobjectandfieldpicklist" >
+    <apex:form >
+        <apex:pageBlock title="Schema">
+            <apex:pageBlockSection id="one">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Objects"/>                                                                                                                                                                                                                                                                                                                             
+                    <apex:selectList size="1" value="{!selected}">
+                        <apex:selectOptions value="{!objects}"/>
+                        <apex:actionsupport event="onchange" action="{!getdata}" rerender="one"/></apex:selectList>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="fields"/>
+                    <apex:selectList  value="{!selectedfield}" multiselect="true" size="3"  style="width: 200px;">
+                        <apex:selectOptions value="{!fields}"/>
+                    </apex:selectList></apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+            <apex:pageBlock id="pgblk1" title="SD Asset History">
+                <div style="width:70%">
+                <apex:pageBlockSection id="pgblksec" columns="4">
+                    
+                        <apex:input type="date" id="fromDatedate" value="{!fromdate}" label="From Date" />
+                        <apex:input type="date" id="toDatedate" value="{!todate}" label="To Date"/>
+         </apex:pageBlockSection>    
+                </div>
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton value="Reset" action="{!reset}"/>
+               <apex:commandButton value="Search" action="{!runSearch}" reRender="tabledisplay"/> 
+               <apex:commandButton value="Export to csv" action="{!runexport}"/>
+
+                        </apex:pageBlockButtons>
+
+        <apex:pageBlockTable value="{!TableList}" var="rec" id="tabledisplay" >
+            <apex:repeat value="{!selectedfield}" var="fld">
+                <apex:column value="{!rec[fld]}"/>
+            </apex:repeat>
+        </apex:pageBlockTable>  
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

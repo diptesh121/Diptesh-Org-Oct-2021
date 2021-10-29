@@ -1,0 +1,105 @@
+<aura:component controller="worktasktableclass">
+    <aura:attribute name="worktable" type="sobject" default="{'sobjectType': 'Worktask__c',
+                                                             'Name':'',
+                                                             'Actual_time_taken__c':'',
+                                                             'Details__c':'',
+                                                             'Quated_Duration__c':'',
+                                                             'Task_Status__c':''
+                                                             }"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="sNo" type="string" />
+    <aura:attribute name="nameEditMode" type="boolean" default="false" />
+    <aura:attribute name="showErrorClass" type="boolean" default="false"/>
+    <aura:attribute name="showSaveCancelBtn" type="boolean"/>
+    <aura:attribute name="statusEditMode" type="boolean" default="false" />
+    <aura:attribute name="statusPicklistOpts" type="string[]" description="store picklist options values"/> 
+    <aura:attribute name="objInfoForPicklistValues" type="account" default="{sobjectType : 'Worktask__c'}" description="object information to fetch picklist values"/>
+    <aura:attribute name="rowIndex" type="String"/>
+    <aura:registerEvent name="DeleteRowEvt" type="c:deleterow"/> 
+    <aura:registerEvent name="AddRowEvt" type="c:addnewrow"/> 
+    
+    
+    <tr>
+        <td><div class="slds-truncate"> {!v.rowIndex + 1}</div></td>
+        <td ondblclick="{!c.inlineEditName}" class="{! v.showErrorClass == true ? 'slds-cell-edit slds-has-error' : 'slds-cell-edit'}">
+            <span class="slds-grid slds-grid_align-spread">
+                <aura:if isTrue="{!v.nameEditMode == false}">
+                    <span class="slds-truncate" title="Name">{!v.worktable.Name}</span>
+                    <!-- Inline Edit Section in else case-->  
+                    <aura:set attribute="else">
+                        <section  tabindex="0" class="slds-popover slds-popover_edit" role="dialog" style="position: absolute; top: 0px">
+                            <div class="slds-popover__body">
+                                <div class="slds-form-element slds-grid slds-wrap">
+                                    <div class="slds-form-element__control slds-grow">
+                                        <ui:inputText class="slds-input inputFieldWidth"
+                                                      labelClass="slds-form-element__label slds-form-element__label_edit slds-no-flex"
+                                                      aura:id="inputId"
+                                                      blur="{!c.closeNameBox}"
+                                                      change="{!c.onNameChange}"
+                                                      required="true"
+                                                      label="Name"
+                                                      value="{!v.worktable.Name}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <span id="form-end" tabindex="0"></span>
+                        </section>  
+                    </aura:set>
+                </aura:if>
+            </span>
+        </td>
+        <td>
+            <div class="slds-truncate">{!v.worktable.Actual_time_taken__c}</div>
+        </td>
+        <td>
+            <div class="slds-truncate">{!v.worktable.Details__c}</div>
+        </td>
+        <td>
+            <div class="slds-truncate">{!v.worktable.Quated_Duration__c}</div>
+        </td>
+        <td ondblclick="{!c.inlineEdittaskstatus}" class="slds-cell-edit">
+            <span class="slds-grid slds-grid_align-spread">
+                <!-- show input and output section based on boolean flag --> 
+                <aura:if isTrue="{!v.statusEditMode == false}">
+                    <span class="slds-truncate" title="Rating">{!v.worktable.Task_Status__c}</span>
+                    <!-- Inline Edit Section in else case-->  
+                    <aura:set attribute="else">
+                        <section  tabindex="0" class="slds-popover slds-popover_edit" role="dialog" style="position: absolute; top: 0px">
+                            <div class="slds-popover__body">
+                                <div class="slds-form-element slds-grid slds-wrap">
+                                    <div class="slds-form-element__control slds-grow">
+                                        <label class="slds-form-element__label">Task Status</label>
+                                        <ui:inputSelect aura:id="accRating"
+                                                        class="slds-select inputFieldWidth"
+                                                        blur="{!c.closeRatingBox}"
+                                                        change="{!c.onstatusChange}"
+                                                        value="{!v.worktable.Task_Status__c}"
+                                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <span id="form-end" tabindex="0"></span>
+                        </section>  
+                    </aura:set>  
+                </aura:if> 
+            </span>
+        </td> 
+         <td>
+            <!-- conditionally Display Add or Delete Icons
+                 if rowIndex is 0 then show Add New Row Icon else show delete Icon
+             --> 
+            <aura:if isTrue="{!v.rowIndex == 0}">
+                <a onclick="{!c.AddNewRow}">
+                  <lightning:icon iconName="utility:add" class="slds-icon slds-icon_small" size="small" alternativeText="add"/>
+                  <span class="slds-assistive-text">Add Icon</span>
+                </a>    
+              <aura:set attribute="else">
+                  <a onclick="{!c.removeRow}">
+                   <lightning:icon variant="error" iconName="utility:delete" class="slds-icon slds-icon_small" size="small" alternativeText="icon"/>
+                   <span class="slds-assistive-text">Delete Icon</span>
+                  </a>
+              </aura:set> 
+            </aura:if>
+        </td> 
+    </tr>
+</aura:component>

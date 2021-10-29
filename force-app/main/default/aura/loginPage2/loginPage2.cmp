@@ -1,0 +1,39 @@
+<aura:component implements="flexipage:availableForAllPageTypes" controller="LoginPagecontroller" access="global" >
+    <aura:attribute name="createAcc" type="Login_History__c" default="{'sObjectType':'Login_History__c',
+                                                                      'Name':'',
+                                                                      'Employee_Data__c' : '',
+                                                                      'Login_Time__c' :'',
+                                                                      'Logout_Time__c': ''}"/>
+    <aura:attribute name="showErrorClass" type="boolean" default="false"/>
+    
+    <aura:attribute name="nameEditMode" type="boolean" default="false" />
+    
+    <div class="slds-col slds-size_1-of-1" >
+        <lightning:input type="datetime" name="input1" label="Log-In" required="true" aura:id="StartDatetime"   value="{!v.createAcc.Login_Time__c}" />
+        <lightning:button label="Log-In" variant="brand" onclick="{!c.gettimenow}" />
+        <lightning:input type="datetime" name="input2" label="Log-Out" aura:id="EndDatetime"   value="{!v.createAcc.Logout_Time__c}" />
+        <lightning:button label="Log-Out" variant="brand" onclick="{!c.gettimenow2}" />
+        <lightning:button label="Save" iconPosition="left" variant="brand" onclick="{!c.doSave}"/>
+    </div>
+    <div class="slds-table_edit_container slds-is-relative">   
+        <table class="slds-table slds-no-cell-focus slds-table_bordered slds-table_edit slds-table_fixed-layout slds-table_resizable-cols">
+            <thead>
+                <tr class="slds-text-heading_label">
+                    <th scope="col"><div class="slds-truncate" title="ID">Name</div></th>
+                    <th scope="col"><div class="slds-truncate" title="Quated Duration">Quated Duration</div></th>
+                    <th scope="col"><div class="slds-truncate" title="Actual Duration">Actual Duration</div></th>
+                    <th scope="col"><div class="slds-truncate" title="Details">Details</div></th>
+                    <th scope="col"><div class="slds-truncate" title="Task Status">Status</div></th>
+                </tr>
+            </thead>
+            <tbody>
+                <aura:iteration items="{!v.closeplan}" var="closeplan">
+                    <c:loginpagetablechild  closeplan="{!closeplan}"
+                                           showSaveCancelBtn="{!v.showSaveCancelBtn}"
+														/>
+                  
+                    </aura:iteration>
+                </tbody>
+            </table>
+        </div>
+    </aura:component>

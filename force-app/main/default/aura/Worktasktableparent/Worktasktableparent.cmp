@@ -1,0 +1,85 @@
+<aura:component controller="worktasktableclass" implements="flexipage:availableForAllPageTypes,force:hasRecordId,force:appHostable" > 
+    <aura:handler name="init" value="{!this}" action="{!c.initRecords}"/>
+    <!--declare aura attributes-->
+    <aura:attribute name="worktsklist" type="Worktask__c[]" description="store worktask records list"/>
+    <aura:attribute name="showSaveCancelBtn" type="boolean" default="false" description="flag for rendered save and cancel buttons in aura:if "/>
+    <aura:attribute name="showModal" type="boolean" default="false"/>
+    <aura:attribute name="createtask" type="Worktask__c" default="{'sObjectType':'Worktask__c',
+                                                                 	  'Name':'',
+                                                                      'Project__c':'',
+                                                                      'Project1__c':'',
+                                                                      'Quated_Duration__c':'',
+                                                                	 'Actual_time_taken__c':'',
+                                                                 	 'Task_Status__c':''
+                                                                      }"/>
+    <aura:attribute name="taskname" type="String"></aura:attribute>
+    <div class="slds-m-around_large">
+        <lightning:button variant="brand"
+                          label="Create New Task"
+                          title="Create New Task"
+                          onclick="{!c.showModel}" />
+        <!--Data Table-->
+        
+        <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+            <thead>
+                <tr class="slds-text-title--caps">
+                    <th scope="col"><div class="slds-truncate" title="Id">S.No</div></th> 
+                    <th scope="col"><div class="slds-truncate" title="Worktask Name">Worktask Name</div></th>
+                    <th scope="col"><div class="slds-truncate" title="Actual_time_taken__c">Actual_time_taken__c</div></th>
+                    <th scope="col"><div class="slds-truncate" title="Details">Details</div></th>
+                    <th scope="col"><div class="slds-truncate" title="Quated_Duration__c">Quated_Duration__c</div></th>
+                    <th scope="col"><div class="slds-truncate" title="Task_Status__c">Task_Status__c</div></th>
+                </tr>
+            </thead>
+            <tbody>
+                <!--### display all records of AccountList attribute one by one by aura:iteration ###-->
+                <aura:iteration items="{!v.worktsklist}" var="worktsklist" indexVar="sNo">
+                    <!-- Child Lightning Component --> 
+                    <c:Worktasktablechild worktable="{!worktsklist}"
+                                          showSaveCancelBtn="{!v.showSaveCancelBtn}"
+                                          sNo="{!sNo + 1}"/>
+                </aura:iteration>
+            </tbody>
+        </table>
+        <!-- use aura:if for show/hide buttons --> 
+        <aura:if isTrue="{!v.showSaveCancelBtn}">
+            <!--button for save and cancel Record after Inline Edit-->
+            <lightning:buttonGroup class="slds-m-around_medium">
+                <lightning:button label="Cancel" onclick="{!c.cancel}"/>
+                <lightning:button label="Save" onclick="{!c.Save}" variant="success"/>
+            </lightning:buttonGroup>
+        </aura:if>
+    </div>
+ 
+        <aura:if isTrue="{!v.showModal}">
+             <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <lightning:buttonIcon iconName="utility:close"
+                                              onclick="{! c.closeModel }"
+                                              alternativeText="close"
+                                              variant="bare-inverse"
+                                              class="slds-modal__close"/>
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Create New Task</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium">
+                        <p>Hello</p>
+                  <!--   <lightning:inputField  label="Task Name" fieldName="Project__c"  value="{!v.taskname}"/> -->
+                 		<lightning:inputField   fieldName="Quated_Duration__c"  />
+                        <lightning:input type="number" name="input1"  label=" Enter text" value="{!v.createtask.Quated_Duration__c}"/>
+                        
+                    </div>
+                   <footer class="slds-modal__footer">
+                        <lightning:button variant="neutral" 
+                                          label="Cancel"
+                                          title="Cancel"
+                                          onclick="{! c.closeModel }"/>
+                    </footer>
+                    
+                 </div>
+            </section>
+                        <div class="slds-backdrop slds-backdrop_open"></div>
+
+        </aura:if>
+   
+</aura:component>
