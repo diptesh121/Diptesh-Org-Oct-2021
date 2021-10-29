@@ -9,6 +9,7 @@ public class AccountHandler {
 public static Account insertNewAccount(String name) {
 Account a = new Account();
 a.Name = name;
+System.debug('sada');
 try
 {
 insert a;
@@ -16,5 +17,6 @@ insert a;
 return null; 
 }
 return a;
+
 }
 }    
